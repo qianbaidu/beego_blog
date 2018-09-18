@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+welcome
+<ul>
+{{range .category}}
+    <li>{{.Id}} - {{.Title}} {{.Created}}</li>
+{{end}}
+</ul>
+</body>
+</html>
