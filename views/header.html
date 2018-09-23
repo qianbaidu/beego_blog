@@ -1,0 +1,107 @@
+{{define "header" }}
+<header class="header">
+    <div class="container">
+        <h1 class="logo">
+            <a href="{{.conf.web_url}}" title="{{.conf.web_title}}">
+                <img src="/static/images/logo.png">
+                {{.conf.web_name}}
+                </img>
+            </a>
+        </h1>
+        <div class="brand">
+            <br>
+        {{.conf.slogon}}
+            </br>
+        </div>
+        <ul class="site-nav site-navbar">
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-81" id="menu-item-81">
+                <a href="{{.conf.web_url}}/category/1">
+                    GoLang
+                </a>
+            </li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-81" id="menu-item-81">
+                <a href="{{.conf.web_url}}/category/3">
+                    Java
+                </a>
+            </li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-81" id="menu-item-81">
+                <a href="{{.conf.web_url}}/category/4">
+                    Python
+                </a>
+            </li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-82" id="menu-item-82">
+                <a href="{{.conf.web_url}}/category/2">
+                    Linux
+                </a>
+            </li>
+            <li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-82" id="menu-item-82">
+                <a href="{{.conf.web_url}}/category/5">
+                    Mysql
+                </a>
+            </li>
+            <li class="navto-search">
+                <a class="search-show active" href="javascript:;">
+                    <i class="fa fa-search">
+                    </i>
+                </a>
+            </li>
+        </ul>
+        <div class="topbar">
+            <ul class="site-nav topmenu">
+                {{/*<li class="menusns">*/}}
+                    {{/*<a href="{{.conf.web_url}}/" target="_blank">*/}}
+                        {{/*关注本站*/}}
+                        {{/*<i class="fa fa-angle-down">*/}}
+                        {{/*</i>*/}}
+                    {{/*</a>*/}}
+                    {{/*<ul class="sub-menu">*/}}
+                        {{/*<li>*/}}
+                            {{/*<a href="{{.conf.web_url}}/?feed=rss2" target="_blank">*/}}
+                                {{/*<i class="fa fa-rss">*/}}
+                                {{/*</i>*/}}
+                                {{/*RSS订阅*/}}
+                            {{/*</a>*/}}
+                        {{/*</li>*/}}
+                    {{/*</ul>*/}}
+                {{/*</li>*/}}
+            </ul>
+
+        {{if .username}}
+
+
+            Hi, {{.username}}
+            &nbsp; &nbsp; <a target="_blank" href="{{.conf.web_url}}/admin/">后台管理</a>
+            &nbsp; &nbsp; <a href="{{.conf.web_url}}/user/logout">退出</a>
+        {{else}}
+            <a class="signin-loader" href="javascript:;">
+                Hi, 请登录
+            </a>
+            &nbsp; &nbsp;
+            <a class="signup-loader" href="javascript:;">
+                我要注册
+            </a>
+            &nbsp; &nbsp;
+            <a href="{{.conf.web_url}}/about">
+                找回密码
+            </a>
+        {{end}}
+
+        </div>
+        <i class="fa fa-bars m-icon-nav">
+        </i>
+    </div>
+</header>
+{{/*<div class="site-search">*/}}
+    {{/*<div class="container">*/}}
+        {{/*<form action="{{.conf.web_url}}/" class="site-search-form" method="get">*/}}
+            {{/*<input class="search-input" name="s" placeholder="输入关键字" type="text" value="">*/}}
+            {{/*<button class="search-btn" type="submit">*/}}
+                {{/*<i class="fa fa-search">*/}}
+                {{/*</i>*/}}
+            {{/*</button>*/}}
+            {{/*</input>*/}}
+        {{/*</form>*/}}
+    {{/*</div>*/}}
+{{/*</div>*/}}
+
+{{end}}

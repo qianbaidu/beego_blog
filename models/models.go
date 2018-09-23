@@ -3,21 +3,21 @@ package models
 import (
 	"time"
 	"github.com/astaxie/beego/orm"
-	//_ "github.com/mattn/go-sqlite3"
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/mattn/go-sqlite3"
 	"fmt"
+	"github.com/astaxie/beego"
+	"github.com/gpmgo/gopm/modules/log"
 )
 
 const (
 	_DB_NAME        = "data/beego.db"
-
-
-	//_SQLLTE3_DRIVER = "sqlite3"
+	_SQLLTE3_DRIVER = "sqlite3"
 )
 
 type Category struct {
 	Id              int64
-	Title           string
+	Name            string
 	Created         time.Time `orm:"index"`
 	Views           int64     `orm:"index"`
 	TopicTime       time.Time `orm:"index"`
@@ -41,26 +41,37 @@ type Topic struct {
 }
 
 func RegisterDb() {
-	//if !com.IsExist(_DB_NAME) {
-	//	os.MkdirAll(path.Dir(_DB_NAME), os.ModePerm)
-	//	os.Create(_DB_NAME)
+	dbtype := beego.AppConfig.String("dbtype")
+	log.Info(fmt.Sprintf("db_type:%s", dbtype))
+	//if dbtype == "mysql" {
+		dbhost := beego.AppConfig.String("dbhost")
+		dbport := beego.AppConfig.String("dbport")
+		dbuser := beego.AppConfig.String("dbuser")
+		dbpassword := beego.AppConfig.String("dbpassword")
+		dbname := beego.AppConfig.String("dbname")
+
+		orm.RegisterDriver("mysql", orm.DRMySQL)
+		dns := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8"
+		orm.RegisterDataBase("default", "mysql", dns)
+
+	//} else if (dbtype == "sqlite") {
+	//	if !com.IsExist(_DB_NAME) {
+	//		os.MkdirAll(path.Dir(_DB_NAME), os.ModePerm)
+	//		os.Create(_DB_NAME)
+	//	}
+	//	orm.RegisterDriver(_SQLLTE3_DRIVER, orm.DRSqlite)
+	//	orm.RegisterDataBase("default", _SQLLTE3_DRIVER, _DB_NAME, 10)
+	//} else {
+	//	fmt.Errorf("undefine db type")
 	//}
-	//
-	orm.RegisterModel(new(Category), new(Topic))
-	//orm.RegisterDriver(_SQLLTE3_DRIVER, orm.DRSqlite)
-	//orm.RegisterDataBase("default", _SQLLTE3_DRIVER, _DB_NAME, 10)
 
-
-	orm.RegisterDriver("mysql", orm.DRMySQL)
-
-	orm.RegisterDataBase("default", "mysql", "root:@/beego_blog?charset=utf8")
-
+	orm.RegisterModel(new(Category), new(Topic), new(Article), new(User), new(Conf), new(Tag))
 }
 
 func AddCate(title string) error {
 	o := orm.NewOrm()
 	cate := &Category{
-		Title:           title,
+		Name:            title,
 		Created:         time.Now(),
 		Views:           1,
 		TopicTime:       time.Now(),
@@ -71,14 +82,14 @@ func AddCate(title string) error {
 	return err
 }
 
-func GetList() (cate []*Category) {
+func GetCategoryList() (cate []*Category) {
 	o := orm.NewOrm()
 	cate = make([]*Category, 0)
 	qs := o.QueryTable("category")
 	var err error
 	_, err = qs.All(&cate)
 	if err != nil {
-		fmt.Println(err)
+		log.Warn(fmt.Sprintf("%s", err))
 	}
 	return
 }

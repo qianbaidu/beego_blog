@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/qianbaidu/beego_blog/models"
 	"github.com/astaxie/beego/orm"
-	"github.com/qianbaidu/beego_blog/controllers"
+	_ "github.com/qianbaidu/beego_blog/routers"
+	"github.com/qianbaidu/beego_blog/models"
 )
 
 func init() {
@@ -12,9 +12,10 @@ func init() {
 }
 
 func main() {
-	orm.Debug = true
+	if beego.AppConfig.String("runmode") == "dev" {
+		orm.Debug = true
+	}
+
 	orm.RunSyncdb("default", false, false)
-	beego.Router("/", &controllers.IndexController{})
-	beego.Router("/login", &controllers.LoginController{})
 	beego.Run()
 }
