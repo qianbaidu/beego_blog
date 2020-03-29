@@ -1,10 +1,10 @@
 package models
 
 import (
-	"time"
-	"github.com/astaxie/beego/orm"
 	"fmt"
-	"github.com/gpmgo/gopm/modules/log"
+	"github.com/astaxie/beego/orm"
+	"github.com/prometheus/common/log"
+	"time"
 )
 
 type Article struct {
@@ -21,6 +21,7 @@ type Article struct {
 	ThubImg     string
 	TagId       int64
 	//CategoryInfo Category
+
 }
 
 func GetArticleById(id int) (article Article, err error) {
@@ -46,7 +47,7 @@ func GetArticleListcate() (article []*Article) {
 	var err error
 	_, err = qs.All(&article)
 	if err != nil {
-		log.Warn(fmt.Sprintf("%s", err))
+		log.Error(fmt.Sprintf("%s", err))
 	}
 	return
 }

@@ -1,13 +1,13 @@
 package models
 
 import (
-	"time"
+	"fmt"
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/mattn/go-sqlite3"
-	"fmt"
-	"github.com/astaxie/beego"
-	"github.com/gpmgo/gopm/modules/log"
+	"github.com/prometheus/common/log"
+	"time"
 )
 
 const (
@@ -29,7 +29,7 @@ type Topic struct {
 	Id              int64
 	Uid             int64
 	Title           string
-	Content         string    `orm:"size(5000)"`
+	Content         string `orm:"size(5000)"`
 	Attachment      string
 	Created         time.Time `orm:"index"`
 	Updated         time.Time `orm:"index"`
@@ -44,15 +44,15 @@ func RegisterDb() {
 	dbtype := beego.AppConfig.String("dbtype")
 	log.Info(fmt.Sprintf("db_type:%s", dbtype))
 	//if dbtype == "mysql" {
-		dbhost := beego.AppConfig.String("dbhost")
-		dbport := beego.AppConfig.String("dbport")
-		dbuser := beego.AppConfig.String("dbuser")
-		dbpassword := beego.AppConfig.String("dbpassword")
-		dbname := beego.AppConfig.String("dbname")
+	dbhost := beego.AppConfig.String("dbhost")
+	dbport := beego.AppConfig.String("dbport")
+	dbuser := beego.AppConfig.String("dbuser")
+	dbpassword := beego.AppConfig.String("dbpassword")
+	dbname := beego.AppConfig.String("dbname")
 
-		orm.RegisterDriver("mysql", orm.DRMySQL)
-		dns := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8"
-		orm.RegisterDataBase("default", "mysql", dns)
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	dns := dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":" + dbport + ")/" + dbname + "?charset=utf8"
+	orm.RegisterDataBase("default", "mysql", dns)
 
 	//} else if (dbtype == "sqlite") {
 	//	if !com.IsExist(_DB_NAME) {
@@ -89,7 +89,7 @@ func GetCategoryList() (cate []*Category) {
 	var err error
 	_, err = qs.All(&cate)
 	if err != nil {
-		log.Warn(fmt.Sprintf("%s", err))
+		log.Error(fmt.Sprintf("%s", err))
 	}
 	return
 }

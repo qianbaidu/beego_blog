@@ -34,7 +34,7 @@ func GetHotTagList() (tags []orm.Params) {
 //	var tags []orm.Params
 //	num, err := o.QueryTable("tag").Values(&tags, "name", "count")
 //	if err == nil {
-//		log.Warn(fmt.Sprintf("%s", err))
+//		log.Error(fmt.Sprintf("%s", err))
 //		//fmt.Printf("Result Nums: %d\n", num)
 //		//for _, row := range tags {
 //		//fmt.Println(row["Name"])
