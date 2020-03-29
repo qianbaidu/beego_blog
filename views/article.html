@@ -87,7 +87,7 @@
     <div class="content-wrap">
         <div class="content">
             <header class="article-header">
-                <h1 class="article-title"><a href="/article/{{.article.Id}}.html">{{.article.Title}}</a></h1>
+                <h1 class="article-title"><a href="{{$.conf.web_url}}/article/{{.article.Id}}.html">{{.article.Title}}</a></h1>
                 <div class="article-meta">
                     <span class="item">{{dateformat .article.CreatedTime "2006-01-02 15:04:05"}} </span>
                     <span class="item">分类：<a href="{{.conf.web_url}}/category/{{.article.CategoryId}}" rel="category tag">{{.category_name}}</a></span>
@@ -153,7 +153,7 @@
             <ul>
             {{range .category}}
                 <li class="cat-item cat-item-47">
-                    <a href="/category/{{.Id}}">
+                    <a href="{{$.conf.web_url}}/category/{{.Id}}">
                     {{.Name}}
                     </a>
                 </li>
@@ -169,7 +169,7 @@
             </h3>
             <div class="tagcloud">
             {{range .tags}}
-                <a class="tag-link-{{.Count}}" href="{{.conf.web_url}}/tag/{{.Id}}"
+                <a class="tag-link-{{.Count}}" href="{{$.conf.web_url}}/tag/{{.Id}}"
                    style="font-size: {{.Count}}pt;" title="{{.Count}}个话题">
                 {{.Name}}
                 </a>

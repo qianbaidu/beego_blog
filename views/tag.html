@@ -89,18 +89,18 @@
 
 {{range .article}}
     <article class="excerpt excerpt-1">
-        <a class="focus" href="/article/{{.Id}}.html" target="_blank">
-            <img class="thumb" data-src="/static/images/thumbnail.png"
-                 src="{{if .ThubImg}}{{.ThubImg}}{{ else }}/static/images/thumbnail.png{{ end }}"/>
+        <a class="focus" href="{{$.conf.web_url}}/article/{{.Id}}.html" target="_blank">
+            <img class="thumb" data-src="{{$.conf.web_url}}/static/images/thumbnail.png"
+                 src="{{if .ThubImg}}{{.ThubImg}}{{ else }}{{$.conf.web_url}}/static/images/thumbnail.png{{ end }}"/>
         </a>
         <header>
-            <a class="cat" href="/category/{{.CategoryId}}">
+            <a class="cat" href="{{$.conf.web_url}}/category/{{.CategoryId}}">
                 {{map_get $.cateList .CategoryId}}
                 <i>
                 </i>
             </a>
             <h2>
-                <a href="/article/{{.Id}}.html" target="_blank" title=" {{.Title}}">
+                <a href="{{$.conf.web_url}}/article/{{.Id}}.html" target="_blank" title=" {{.Title}}">
                 {{.Title}}
                 </a>
             </h2>
@@ -219,7 +219,7 @@
 <ul>
 {{range .category}}
 <li class="cat-item cat-item-47">
-        <a href="/category/{{.Id}}">
+        <a href="{{$.conf.web_url}}/category/{{.Id}}">
 {{.Name}}
 </a>
 </li>
@@ -235,7 +235,7 @@
     </h3>
 <div class="tagcloud">
 {{range .tags}}
-<a class="tag-link-{{.Count}}" href="{{.conf.web_url}}/tag/{{.Id}}"
+<a class="tag-link-{{.Count}}" href="{{$.conf.web_url}}/tag/{{.Id}}"
         style="font-size: {{.Count}}pt;" title="{{.Count}}个话题">
 {{.Name}}
 </a>

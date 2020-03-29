@@ -38,6 +38,3 @@
 </body>
 </html>
 
-{{define "footer"}}
-    <div style="width:500px;height:500px;border:1px solid blue;"> diy template</div>
-{{end }}
